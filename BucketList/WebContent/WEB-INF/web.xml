@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="BuckeList" version="3.0">
+	<display-name>BucketList</display-name>
+
+	<!-- Request영역 -->
+	<listener>
+		<listener-class> org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- Bootstraps the root web application context before servlet initialization -->
+		<listener>
+			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+	<!-- needed for ContextLoaderListener -->
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/system/root-context.xml</param-value>
+		</context-param>
+
+	<!-- The front controller of this Spring Web application, responsible for handling all application requests -->
+	<servlet>
+		<servlet-name>AOP</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/system/aop.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- Map all requests to the DispatcherServlet for handling -->
+	<servlet-mapping>
+		<servlet-name>AOP</servlet-name>
+		<url-pattern>*.1</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>nonAOP</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/system/nonaop.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- Map all requests to the DispatcherServlet for handling -->
+	<servlet-mapping>
+		<servlet-name>nonAOP</servlet-name>
+		<url-pattern>*.2</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 한글 인코딩을 위한 태그 -->
+	  <filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	      <param-name>encoding</param-name>
+	      <param-value>UTF-8</param-value>
+	    </init-param>
+	  </filter>
+	  <filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	  </filter-mapping>
+
+	<!-- error page 설정.  -->
+		<error-page>
+		    <error-code>404</error-code>
+		    <location>/WEB-INF/bucketlist/404_error.jsp</location>
+		</error-page>
+		<error-page>
+		    <error-code>500</error-code>
+		    <location>/WEB-INF/bucketlist/500_error.jsp</location>
+		</error-page>
+		<!-- <error-page>
+	     <exception-type>java.lang.Throwable</exception-type>
+	     <location>/we2/errorpage/error.jsp</location>
+	    </error-page> -->
+    
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/bucketlist/index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>
