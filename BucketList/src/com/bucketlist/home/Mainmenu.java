@@ -13,13 +13,23 @@ public class Mainmenu {
 	}
 
 	@RequestMapping(value="/test.1")
-	public String index(Model model){
-		System.out.println("hi");
+	public String index_AOP(Model model){
 		vo.msg();
-		/*int daonum = vo.selectCode();
-		System.out.println("Ctrller DAO : " + daonum);*/
+		int daonum = vo.selectCode();
+		System.out.println("Ctrller DAO : " + daonum);
 		// model영역에 select pjtcode, pjtname 쿼리결과를 보냄
-		//model.addAttribute("testfor", vo.selectAll());
+		model.addAttribute("testfor", vo.selectAll());
+		return "test";
+	}
+	
+	@RequestMapping(value="/test.2")
+	public String index_nonAOP(Model model){
+		System.out.println("test.2");
+		vo.msg();
+		int daonum = vo.selectCode();
+		System.out.println("test2 Ctrller DAO : " + daonum);
+		// model영역에 select pjtcode, pjtname 쿼리결과를 보냄
+		model.addAttribute("testfor", vo.selectAll());
 		return "test";
 	}
 }

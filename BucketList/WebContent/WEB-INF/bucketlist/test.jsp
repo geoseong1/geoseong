@@ -10,13 +10,14 @@
 </head>
 <body>
 <p>test table results : </p>
-<br>
 <table border="1" cellspacing="0">
-<c:forEach var="for" items="${testfor}">
+<c:forEach items="${testfor}" var="forr" >
 	<tr>
-		<td>${for.pjtCode }</td><td>${for.pjtName }</td>
+		<td>${forr}</td>
 	</tr>
 </c:forEach>
 </table>
+<p><img src="/BucketList/resources/img/people_m2.png"></p>
+<p><a href="/BucketList">return to Main</a></p>
 </body>
 </html>

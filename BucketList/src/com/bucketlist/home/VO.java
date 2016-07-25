@@ -30,11 +30,8 @@ public class VO {
 	    
 	//프로젝트 코드를 구하는 쿼리문
 		public int selectCode() {
-				System.out.println("DAO : selectCode");
 			String sql = "select count(*) from pjtmake";
-			int pjtCode = jdbcTemplate.queryForObject(sql, Integer.class);
-				System.out.println("result DAO : "+ pjtCode);
-			return pjtCode;
+			return jdbcTemplate.queryForObject(sql, Integer.class);
 		}
 		
 	//최근 등록한 프로젝트 먼저 출력하기

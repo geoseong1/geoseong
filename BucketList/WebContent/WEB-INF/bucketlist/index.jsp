@@ -17,7 +17,8 @@
 <body>
 <div id="main">
 	<h1>BucketList index</h1>
-	<a href="test.1">enter to test</a>
+	<p><a href="test.1">enter to test.1</a></p>
+	<p><a href="test.2">enter to test.2</a></p>
 </div>
 </body>
 </html>

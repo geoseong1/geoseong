@@ -1,4 +1,4 @@
-select pjtCode, pjtName from pjtmake order by pjtCode;
+select pjtName from pjtmake order by pjtCode;
 
 desc pjtmake;
 
