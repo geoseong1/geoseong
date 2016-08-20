@@ -1,4 +1,4 @@
-package com.bucketlist.home;
+package com.bucketlist.dto;
 
 import java.util.Date;
 
@@ -11,9 +11,23 @@ public class GuestBrdVO {
 	private String brdcount; /* 조회수 */
 	private Date brdadddate; /* 게시날짜 */
 	
+	
+	public GuestBrdVO() {
+		super();
+	}
+
+	
+	public GuestBrdVO(String brduserid, String brdsubject, String brdcontext, String brdfilepath) {
+		super();
+		this.brduserid = brduserid;
+		this.brdsubject = brdsubject;
+		this.brdcontext = brdcontext;
+		this.brdfilepath = brdfilepath;
+	}
+
+
 	public GuestBrdVO(int brdno, String brduserid, String brdsubject, String brdcontext, String brdfilepath,
 			String brdcount, Date brdadddate) {
-		super();
 		this.brdno = brdno;
 		this.brduserid = brduserid;
 		this.brdsubject = brdsubject;

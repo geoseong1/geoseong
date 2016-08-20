@@ -5,9 +5,9 @@
   
 <configuration>	
  	<typeAliases>
- 		<typeAlias alias="guestVO" type="com.bucketlist.home.GuestBrdVO"/>
+ 		<typeAlias alias="guestVO" type="com.bucketlist.dto.GuestBrdVO"/>
  	</typeAliases>
 	<mappers>
-		<mapper resource="mybatis/mapper/usermapper_m.xml"/>
+		<mapper resource="mybatis/mapper/guestboard.xml"/>
 	</mappers>
 </configuration>

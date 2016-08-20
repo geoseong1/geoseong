@@ -1,12 +1,40 @@
 @CHARSET "UTF-8";
+
 body{
 	background-color: #993300;
 	color: white;
 }
+#wrap{
+	height: 100%;
+	width: 100%;
+	margin: 0em;
+}
+#menuwrap{
+	background-color: #ffffff;
+	color: #000000;
+}
+#footer{
+	position: fixed;
+	bottom: 0em;
+}
 
-#main{
+.guesttbl_list th{
+	padding: 1em;
+	border-bottom: 1px solid #993300;
+}
+.guesttbl_list td{
+	padding: 0em 0.5em;
+}
+.guesttbl_list #btn{
+	text-align: right;
+}
+
+.guesttbl_addmod #btn{
+	text-align: right;
+}
+/* #main{
 	vertical-align: middle;
 	text-align: center;
 	font-size: xx-large;
 	font-style: oblique;
-}
+} */

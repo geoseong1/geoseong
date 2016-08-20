@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionTemplate;
+
+import com.bucketlist.dto.GuestBrdVO;
 
 public class GuestBrdServiceImpl implements GuestBrdService{
 
@@ -13,31 +14,53 @@ public class GuestBrdServiceImpl implements GuestBrdService{
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
-	/*private SqlSessionTemplate sqlSession;
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}*/
-
-	public String randomString(){
-		return "sowhat!!! random string";
-	}
-
 	@Override
-	public List<GuestBrdVO> getUserList() {
-		System.out.println("GuestBrdDAO_MyBatis - getUserList");
-		SqlSession session = sqlSessionFactory.openSession();
+	public List<GuestBrdVO> getBoardList() {
+		System.out.println("GuestBrdService_MyBatis >>> getUserList");
+		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
+		
 		List<GuestBrdVO> getlist = null;
 		try{
 			System.out.println("------------------Mapper 정의하기 전");
-			GuestBrdMapper mapper = session.getMapper(GuestBrdMapper.class);
-			getlist = mapper.getUserList();
-			// 옛날방식 : getlist = session.selectList("com.bucketlist.home.GuestBrdMapper.getUserList");
-			System.out.println("------------------Mapper 정의한 후");
+			getlist = session.selectList("guestboard.boardList");	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
+			System.out.println("------------------Mapper 정의한 후");		
 		}catch(Exception e){
-			System.out.println("[DAO] 에러 : " + e.getMessage());
+			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
+		}finally{
+			session.close();
+		}		
+		return getlist;
+	}
+
+	@Override
+	public void insertUser(GuestBrdVO gbVO) {
+		System.out.println("GuestBrdService_MyBatis >>> insertUser");
+		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
+		try{
+			System.out.println("------------------Insert 하기 전");
+			session.insert("guestboard.boardInsert", gbVO);	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
+			System.out.println("------------------Insert 한 후");		
+		}catch(Exception e){
+			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
 		}finally{
 			session.close();
 		}
-		return getlist;
+	}
+
+	@Override
+	public GuestBrdVO getBoardContent(Integer brdno) {
+		System.out.println("GuestBrdService_MyBatis >>> getBoardContent");
+		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
+		GuestBrdVO gbVO = null;
+		try{
+			System.out.println("------------------조회 하기 전");
+			gbVO = session.selectOne("guestboard.boardContent", brdno);	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
+			System.out.println("------------------조회 한 후");		
+		}catch(Exception e){
+			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
+		}finally{
+			session.close();
+		}
+		return gbVO;
 	}
 }

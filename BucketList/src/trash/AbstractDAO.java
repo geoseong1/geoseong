@@ -1,4 +1,4 @@
-package com.bucketlist.home;
+package trash;
 
 import java.util.List;
 

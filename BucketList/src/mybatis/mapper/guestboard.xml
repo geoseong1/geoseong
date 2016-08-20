@@ -3,9 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="guestVO" >
+<mapper namespace="guestboard" >
 
-	<resultMap type="com.bucketlist.home.GuestBrdVO" id="res_wishedu" >
+	<!-- 안됨 : Mapped Statements collection does not contain value for guestVOO.boardList -->
+	<resultMap type="com.bucketlist.dto.GuestBrdVO" id="res_wishedu" >
 		<constructor>
 			<idArg column="brdno" javaType="int"/>
 			<arg column="brduserid" javaType="String"/>
@@ -17,7 +18,8 @@
 		</constructor>
 	</resultMap>
 	
-	<resultMap id="userResultMap" type="com.bucketlist.home.GuestBrdVO">
+	<!-- 잘됨. -->
+	<resultMap id="userResultMap" type="guestVO">
 	  	  <id property="brdno" column="brdno" />
 		  <result property="brduserid" column="brduserid"/>
 		  <result property="brdsubject" column="brdsubject"/>
@@ -27,27 +29,29 @@
 		  <result property="brdadddate" column="brdadddate"/>
 	</resultMap>
 	
-	<!-- 원래는 이렇게 안했고 -->
-	<!-- <select id="list" resultMap="res_wishedu"> -->
-	<select id="getUserList" resultType="guestVO">
+	<!-- 이방식도 됨 : <select id="boardList" resultMap="userResultMap"> -->
+	<select id="boardList" resultType="guestVO">
 		select * from guest_wishedu
 	</select>
 	
-	<!-- <insert id="add" parameterType="user.vo.UserVO">
-		insert into userinfo (userid,
-		username, userpwd,
-		email, phone,address)
-		values (#{userid}, #{username},
-		#{userpwd}, #{email}, #{phone}, #{address#)
+	<insert id="boardInsert" parameterType="guestVO">
+		insert into guest_wishedu(
+			brduserid, brdsubject, brdcontext, brdfilepath,
+			brdcount, brdadddate)
+		values(#{brduserid}, #{brdsubject}, #{brdcontext}, #{brdfilepath},
+			0, curdate())
 	</insert>
 
+
+	<select id="boardContent" resultType="guestVO">
+		select * from guest_wishedu 
+		where
+		brdno = #{brdno}
+	</select>
+	
+	<!-- 
 	<select id="login" parameterType="user.vo.UserVO" resultType="user.vo.UserVO">
 		select * from userinfo where userid=#{userid} and userpwd = #{userpwd}
-	</select>
-
-	<select id="getuser" resultType="user.vo.UserVO">
-		select * from userinfo where
-		userid = #{userid}
 	</select>
 
 	<update id="update" parameterType="user.vo.UserVO">

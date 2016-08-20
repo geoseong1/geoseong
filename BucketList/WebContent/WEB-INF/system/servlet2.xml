@@ -14,7 +14,7 @@
 	<mvc:annotation-driven />
 
 	<!-- vo Bean을 참고하는 Controller bean 등록 -->
-	<bean class="com.bucketlist.home.Mainmenu">
+	<bean class="com.bucketlist.controller.Mainmenu">
 		<property name="vo" ref="vo" />
 	</bean>
 	

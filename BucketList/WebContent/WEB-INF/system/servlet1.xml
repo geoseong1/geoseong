@@ -14,8 +14,9 @@
 	<mvc:annotation-driven />
 	
 	<!-- vo Bean을 참고하는 Controller bean 등록 by beans.xml -->
-	<bean class="com.bucketlist.home.Mainmenu">
+	<bean class="com.bucketlist.controller.Mainmenu">
 		<property name="vo" ref="vo" />
+		<property name="guestDao" ref="guestDao" />
 	</bean>
 	
 <!-- 시작 : MyBatis를 위한 태그들 -->
@@ -46,7 +47,7 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
-	<!-- SqlSessionTemplate 를 주입 -->
+	<!-- SqlSessionTemplate을 주입 .. 안하고 sqlSessionFactory를 주입 -->
 	<bean id="guestDao" class="com.bucketlist.home.GuestBrdServiceImpl">
 	  <!-- <property name="sqlSession" ref="sqlSession" /> -->
 	  <property name="sqlSessionFactory" ref="sqlSessionFactory" />

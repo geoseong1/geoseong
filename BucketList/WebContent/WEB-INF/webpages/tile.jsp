@@ -20,7 +20,7 @@
 	<div id="menuwrap">
 		<tiles:insertAttribute name="body"/>
 	</div>
-	<div id="content">
+	<div id="footer">
 		<tiles:insertAttribute name="footer"/>
 	</div>
 </div>

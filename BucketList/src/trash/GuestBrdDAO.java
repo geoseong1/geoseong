@@ -1,9 +1,11 @@
-package com.bucketlist.home;
+package trash;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
+import com.bucketlist.dto.GuestBrdVO;
 
 @Repository("guestDAO")
 public class GuestBrdDAO extends AbstractDAO{
