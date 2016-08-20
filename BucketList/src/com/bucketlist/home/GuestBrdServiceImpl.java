@@ -16,14 +16,14 @@ public class GuestBrdServiceImpl implements GuestBrdService{
 
 	@Override
 	public List<GuestBrdVO> getBoardList() {
-		System.out.println("GuestBrdService_MyBatis >>> getUserList");
+		System.out.println("GuestBrdService_MyBatis >>> getBoardList");
 		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
 		
 		List<GuestBrdVO> getlist = null;
 		try{
-			System.out.println("------------------Mapper 정의하기 전");
+			System.out.println("------------------selectList하기 전");
 			getlist = session.selectList("guestboard.boardList");	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
-			System.out.println("------------------Mapper 정의한 후");		
+			System.out.println("------------------selectList한 후");		
 		}catch(Exception e){
 			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
 		}finally{
@@ -33,12 +33,12 @@ public class GuestBrdServiceImpl implements GuestBrdService{
 	}
 
 	@Override
-	public void insertUser(GuestBrdVO gbVO) {
+	public void inserBoard(GuestBrdVO gbVO) {
 		System.out.println("GuestBrdService_MyBatis >>> insertUser");
 		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
 		try{
 			System.out.println("------------------Insert 하기 전");
-			session.insert("guestboard.boardInsert", gbVO);	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
+			session.insert("guestboard.boardInsert", gbVO);	// session을 이용해 매퍼xml의 SQL을 사용
 			System.out.println("------------------Insert 한 후");		
 		}catch(Exception e){
 			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
@@ -54,13 +54,29 @@ public class GuestBrdServiceImpl implements GuestBrdService{
 		GuestBrdVO gbVO = null;
 		try{
 			System.out.println("------------------조회 하기 전");
+			session.update("guestboard.boardcntplus1", brdno);	// 조회수 +1 업뎃
 			gbVO = session.selectOne("guestboard.boardContent", brdno);	// session을 이용해 매퍼xml의 SQL을 사용하여 결과를 받아낸다.
-			System.out.println("------------------조회 한 후");		
+			System.out.println("------------------조회 한 후");
 		}catch(Exception e){
 			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
 		}finally{
 			session.close();
 		}
 		return gbVO;
+	}
+
+	@Override
+	public void removeBoard(Integer brdno) {
+		System.out.println("GuestBrdService_MyBatis >>> removeBoard");
+		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
+		try{
+			System.out.println("------------------remove 하기 전");
+			System.out.println("		remove 하려는 게시번호 : " + session.delete("guestboard.boardDelete", brdno));	// session을 이용해 매퍼xml의 SQL을 사용
+			System.out.println("------------------remove 한 후");		
+		}catch(Exception e){
+			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
+		}finally{
+			session.close();
+		}
 	}
 }

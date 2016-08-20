@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h1>guest_content.jsp</h1>
-<form method="get" action="guestupdate.do">
+<form method="post" action="guestdelete.do">
 <table cellspacing="0" class="guesttbl_addmod">
 <tr>
 	<td colspan="3">게시번호 : ${guestbrd.brdno }, 게시날짜 : ${guestbrd.brdadddate }</td>
@@ -32,7 +32,9 @@
 </tr>
 <tr>
 	<td colspan="3" id="btn">
-		<input type="submit" value="수정하기">
+		<input type="hidden" name="brdno" value="${guestbrd.brdno }">
+		<input type="submit" value="제거하기">
+		<input type="button" value="수정하기" onclick="location.href='guestupdate.do'">
 		<input type="button" value="목록으로" onclick="location.href='guestcenter.do'">
 	</td>
 </tr>

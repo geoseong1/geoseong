@@ -14,7 +14,7 @@
 			<arg column="brdcontext" javaType="String"/>
 			<arg column="brdfilepath" javaType="String"/>
 			<arg column="brdcount" javaType="String"/>
-			<arg column="brdadddate" javaType="Date"/>
+			<arg column="brdadddate" javaType="String"/>
 		</constructor>
 	</resultMap>
 	
@@ -39,15 +39,22 @@
 			brduserid, brdsubject, brdcontext, brdfilepath,
 			brdcount, brdadddate)
 		values(#{brduserid}, #{brdsubject}, #{brdcontext}, #{brdfilepath},
-			0, curdate())
+			0, date_format(now(), '%Y/%m/%d'))
 	</insert>
-
 
 	<select id="boardContent" resultType="guestVO">
 		select * from guest_wishedu 
 		where
 		brdno = #{brdno}
 	</select>
+	
+	<update id="boardcntplus1">
+		update guest_wishedu set brdcount:=brdcount+1 where brdno=#{brdno}
+	</update>
+	
+	<delete id="boardDelete">
+		delete from guest_wishedu where brdno=#{brdno}
+	</delete>
 	
 	<!-- 
 	<select id="login" parameterType="user.vo.UserVO" resultType="user.vo.UserVO">
@@ -61,9 +68,7 @@
 		#{userid}
 	</update>
 
-	<delete id="delete">
-		delete from userinfo where userid = #{userid}
-	</delete>
+	
 
 	<select id="search" parameterType="hashMap" resultType="user.vo.UserVO">
 		select * from userinfo

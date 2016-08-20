@@ -20,7 +20,7 @@
 <c:choose>
 	<c:when test="${empty guestbrd }">
 		<tr>
-			<td>검색 결과가 없습니다.</td>
+			<td id="underth" colspan="6">검색 결과가 없습니다.</td>
 		</tr>
 	</c:when>
 	<c:otherwise>

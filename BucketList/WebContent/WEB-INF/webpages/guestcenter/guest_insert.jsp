@@ -24,7 +24,10 @@
 	<td>	<textarea name="brdcontext" rows="30" cols="100"></textarea>	</td>
 </tr>
 <tr>
-	<td colspan="3" id="btn"><input type="submit" value="글쓰기"></td>
+	<td colspan="3" id="btn">
+		<input type="submit" value="글쓰기">
+		<input type="button" value="목록으로" onclick="location.href='guestcenter.do'">
+	</td>
 </tr>
 </table>
 </form>

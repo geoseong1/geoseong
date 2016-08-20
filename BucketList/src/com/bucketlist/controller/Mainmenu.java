@@ -39,72 +39,61 @@ public class Mainmenu {
 		return "default";
 	}
 	
+	// 메인 : 리스트 보기
 	@RequestMapping(value="/guestcenter.do", method=RequestMethod.GET)
 	public String guestcenter(Model model){
 		System.out.println("guestcenter/guest_main");
 		
 		//System.out.println("get String from mapper : " + dao.randomString());
 		try{
-			System.out.println("------------------------------------dao에서 자료 빼오기 전");
+			System.out.println("\n------------------------------------dao에서 자료 빼오기 전");
 			List<GuestBrdVO> list = guestDao.getBoardList();
-			System.out.println("------------------------------------dao에서 자료 빼온 후");
-			System.out.println("	getBrduserid : " + list.get(0).getBrduserid());
-			System.out.println("	getBrdsubject : " + list.get(0).getBrdsubject());
-			System.out.println("	getBrdcontext : " + list.get(0).getBrdcontext());
-			System.out.println("	getBrdfilepath : " + list.get(0).getBrdfilepath());
-			System.out.println("	getBrdcount : " + list.get(0).getBrdcount());
-			System.out.println("	getBrdadddate : " + list.get(0).getBrdadddate());
-
+			System.out.println("------------------------------------dao에서 자료 빼온 후\n");
 			model.addAttribute("guestbrd", list);
 		}catch(Exception e){
 			System.out.println("[Controller/Mainmenu] 에러 : " + e.getMessage());
-			
 		}
-			return "guestcenter/guest_main";
-		/*try {
-			List<GuestBrdVO> list = new ArrayList<GuestBrdVO>();
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			Date to;
-			to = transFormat.parse("2016-08-19");
-			GuestBrdVO guestvo = new GuestBrdVO(3, "geoseong", "안뇽", "방가워", "none", "0", to);
-			list.add(guestvo);
-			model.addAttribute("guestbrd", list);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Date parsing error from Controller");
-			e.printStackTrace();
-		}*/
-		
-		
+		return "guestcenter/guest_main";
 	} //end guestcenter list mainmenu 
 	
+	// 글쓰기 화면
 	@RequestMapping(value="/guestinsert.do", method=RequestMethod.GET)
 	public String guestinsert_get(Model model){
 		System.out.println("guestinsert_get");		
 		return "guestcenter/guest_insert";
 	} //end guestinsert_get
 
+	// 글쓰기 버튼 눌렀을때 DAO이용
 	@RequestMapping(value="/guestinsert.do", method=RequestMethod.POST)
 	public String guestinsert_post(Model model, GuestBrdVO gbVO){
 		System.out.println("guestinsert_post");	
-		guestDao.insertUser(gbVO);
-		System.out.println("guestinsert_post getBrduserid : " + gbVO.getBrduserid());
-		System.out.println("guestinsert_post getBrdsubject : " + gbVO.getBrdsubject());
-		System.out.println("guestinsert_post getBrdcontext : " + gbVO.getBrdcontext());
-		System.out.println("guestinsert_post getBrdfilepath : " + gbVO.getBrdfilepath());
-		System.out.println("and\nguestinsert_post getBrdcount: " + gbVO.getBrdcount());
-		System.out.println("guestinsert_post getBrdadddate: " + gbVO.getBrdadddate());
-		System.out.println("guestinsert_post getBrdno: " + gbVO.getBrdno());
+		guestDao.inserBoard(gbVO);
+			System.out.println("guestinsert_post getBrduserid : " + gbVO.getBrduserid());
+			System.out.println("guestinsert_post getBrdsubject : " + gbVO.getBrdsubject());
+			System.out.println("guestinsert_post getBrdcontext : " + gbVO.getBrdcontext());
+			System.out.println("guestinsert_post getBrdfilepath : " + gbVO.getBrdfilepath());
+			System.out.println("and\nguestinsert_post getBrdcount: " + gbVO.getBrdcount());
+			System.out.println("guestinsert_post getBrdadddate: " + gbVO.getBrdadddate());
+			System.out.println("guestinsert_post getBrdno: " + gbVO.getBrdno());
 		return guestcenter(model);
 	} //end guestinsert_post
 	
+	// 게시글 내용 들어가서 보기
 	@RequestMapping(value="/guestcontent.do", method=RequestMethod.GET)
 	public String guestcontent_get(Model model, HttpServletRequest request){
-		System.out.println("guestinsert_get brdno ? " + request.getParameter("brdno"));
+		System.out.println("guestinsert_get brdno? -- " + request.getParameter("brdno"));
 		
 		model.addAttribute("guestbrd", guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno"))));
 		return "guestcenter/guest_content";
 	} //end guestcontent_get
+	
+	// 선택된 게시글 제거하기
+	@RequestMapping(value="/guestdelete.do", method=RequestMethod.POST)
+	public String guestdelete_get(Model model, HttpServletRequest request){
+		System.out.println("guestdelete_get brdno ? " + request.getParameter("brdno"));
+		guestDao.removeBoard(Integer.parseInt(request.getParameter("brdno")));
+		return guestcenter(model);
+	} //end guestdelete_get
 	
 	/** 테스트 영역 **/
 	@RequestMapping(value="/test.do")
@@ -115,7 +104,7 @@ public class Mainmenu {
 		// model영역에 select pjtcode, pjtname 쿼리결과를 보냄
 		model.addAttribute("testfor", vo.selectAll());
 		return "test";
-	}
+	} //end test.do
 	
 	@RequestMapping(value="/test.admin")
 	public String index_nonAOP(Model model){
@@ -125,7 +114,7 @@ public class Mainmenu {
 		// model영역에 select pjtcode, pjtname 쿼리결과를 보냄
 		model.addAttribute("testfor", vo.selectAll());
 		return "test";
-	}
+	} //end test.admin
 	/** 테스트 영역 **/
 /* End : 메소드 영역 */
 } //end class

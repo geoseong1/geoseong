@@ -4,6 +4,11 @@ body{
 	background-color: #993300;
 	color: white;
 }
+.topdiv{
+	color: white;
+	text-decoration: none;
+}
+
 #wrap{
 	height: 100%;
 	width: 100%;
@@ -22,6 +27,10 @@ body{
 	padding: 1em;
 	border-bottom: 1px solid #993300;
 }
+.guesttbl_list #underth{
+	padding: 0.5em;
+	text-align: center;
+}
 .guesttbl_list td{
 	padding: 0em 0.5em;
 }
@@ -32,9 +41,9 @@ body{
 .guesttbl_addmod #btn{
 	text-align: right;
 }
-/* #main{
+#enter{
 	vertical-align: middle;
 	text-align: center;
 	font-size: xx-large;
 	font-style: oblique;
-} */
+}

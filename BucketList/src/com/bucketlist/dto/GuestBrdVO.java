@@ -1,7 +1,5 @@
 package com.bucketlist.dto;
 
-import java.util.Date;
-
 public class GuestBrdVO {
 	private int brdno; /* 게시번호 */
 	private String brduserid; /* 아이디 */
@@ -9,7 +7,7 @@ public class GuestBrdVO {
 	private String brdcontext; /* 내용 */
 	private String brdfilepath; /* 파일 */
 	private String brdcount; /* 조회수 */
-	private Date brdadddate; /* 게시날짜 */
+	private String brdadddate; /* 게시날짜 */
 	
 	
 	public GuestBrdVO() {
@@ -27,7 +25,7 @@ public class GuestBrdVO {
 
 
 	public GuestBrdVO(int brdno, String brduserid, String brdsubject, String brdcontext, String brdfilepath,
-			String brdcount, Date brdadddate) {
+			String brdcount, String brdadddate) {
 		this.brdno = brdno;
 		this.brduserid = brduserid;
 		this.brdsubject = brdsubject;
@@ -73,10 +71,10 @@ public class GuestBrdVO {
 	public void setBrdcount(String brdcount) {
 		this.brdcount = brdcount;
 	}
-	public Date getBrdadddate() {
+	public String getBrdadddate() {
 		return brdadddate;
 	}
-	public void setBrdadddate(Date brdadddate) {
+	public void setBrdadddate(String brdadddate) {
 		this.brdadddate = brdadddate;
 	}
 	

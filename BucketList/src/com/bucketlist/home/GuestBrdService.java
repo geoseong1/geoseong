@@ -6,6 +6,7 @@ import com.bucketlist.dto.GuestBrdVO;
 
 public interface GuestBrdService {
 	List<GuestBrdVO> getBoardList();
-	void insertUser(GuestBrdVO gbVO);
+	void inserBoard(GuestBrdVO gbVO);
 	GuestBrdVO getBoardContent(Integer brdno);
+	void removeBoard(Integer brdno);
 }
