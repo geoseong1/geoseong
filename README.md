@@ -6,7 +6,7 @@ Use Language : JAVA
 
 Skills :
   Spring Framework 4.0
-  Tomcat v7.0
+  Tomcat v8.0
   Spring MyBatis
   MySQL
   JSP & JSTL
