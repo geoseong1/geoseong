@@ -14,18 +14,9 @@ public class VO {
 	
 	private JdbcTemplate jdbcTemplate;
 	 
-	   /* // 방법 1. 생성자를 통한 DataSource를 > JdbcTemplate에 전달하여 JdbcTemplate 객체 생성.
-	    public PjtMakeDAO(DataSource dataSource) {
-	        this.jdbcTemplate = new JdbcTemplate(dataSource);
-	    }*/
-	    
 	 // 방법 2. setter를 통한 DataSource를 > JdbcTemplate 전달하여 JdbcTemplate 객체 생성.
 	    public void setDataSource(DataSource dataSource){
 	        this.jdbcTemplate = new JdbcTemplate(dataSource);    
-	    }
-	    
-	    public void msg(){
-	    	System.out.println("msg");
 	    }
 	    
 	//프로젝트 코드를 구하는 쿼리문
@@ -47,7 +38,7 @@ public class VO {
 						return res;
 					}
 				}
-			);
+				);
 		return results.isEmpty()?null:results;
 	}
 }

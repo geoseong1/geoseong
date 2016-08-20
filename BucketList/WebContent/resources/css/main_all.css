@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+body{
+	background-color: #993300;
+	color: white;
+}
+
+#main{
+	vertical-align: middle;
+	text-align: center;
+	font-size: xx-large;
+	font-style: oblique;
+}

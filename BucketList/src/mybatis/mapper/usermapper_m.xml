@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestVO" >
+
+	<resultMap type="com.bucketlist.home.GuestBrdVO" id="res_wishedu" >
+		<constructor>
+			<idArg column="brdno" javaType="int"/>
+			<arg column="brduserid" javaType="String"/>
+			<arg column="brdsubject" javaType="String"/>
+			<arg column="brdcontext" javaType="String"/>
+			<arg column="brdfilepath" javaType="String"/>
+			<arg column="brdcount" javaType="String"/>
+			<arg column="brdadddate" javaType="Date"/>
+		</constructor>
+	</resultMap>
+	
+	<resultMap id="userResultMap" type="com.bucketlist.home.GuestBrdVO">
+	  	  <id property="brdno" column="brdno" />
+		  <result property="brduserid" column="brduserid"/>
+		  <result property="brdsubject" column="brdsubject"/>
+		  <result property="brdcontext" column="brdcontext"/>
+		  <result property="brdfilepath" column="brdfilepath"/>
+		  <result property="brdcount" column="brdcount"/>
+		  <result property="brdadddate" column="brdadddate"/>
+	</resultMap>
+	
+	<!-- 원래는 이렇게 안했고 -->
+	<!-- <select id="list" resultMap="res_wishedu"> -->
+	<select id="getUserList" resultType="guestVO">
+		select * from guest_wishedu
+	</select>
+	
+	<!-- <insert id="add" parameterType="user.vo.UserVO">
+		insert into userinfo (userid,
+		username, userpwd,
+		email, phone,address)
+		values (#{userid}, #{username},
+		#{userpwd}, #{email}, #{phone}, #{address#)
+	</insert>
+
+	<select id="login" parameterType="user.vo.UserVO" resultType="user.vo.UserVO">
+		select * from userinfo where userid=#{userid} and userpwd = #{userpwd}
+	</select>
+
+	<select id="getuser" resultType="user.vo.UserVO">
+		select * from userinfo where
+		userid = #{userid}
+	</select>
+
+	<update id="update" parameterType="user.vo.UserVO">
+		update userinfo set
+		email=#{email},phone=#{phone},address=#{address} where
+		userid =
+		#{userid}
+	</update>
+
+	<delete id="delete">
+		delete from userinfo where userid = #{userid}
+	</delete>
+
+	<select id="search" parameterType="hashMap" resultType="user.vo.UserVO">
+		select * from userinfo
+		<where>
+			<if test="userid != null"> userid like '%'||#{userid}||'%'	</if>
+			<if test="username != null"> username like '%'||#{username}||'%'	</if>
+			<if test="email != null"> email like '%'||#{email}||'%'	</if>
+		</where>
+	</select> -->
+</mapper>

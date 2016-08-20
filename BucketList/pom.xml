@@ -126,7 +126,7 @@
 		    <version>3.10.1</version>
 		</dependency>
 		
-	<!-- start : Email -->
+	<!-- Email -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
@@ -138,6 +138,30 @@
 		    <version>1.4.7</version>
 		</dependency>
 		
+	<!-- Tiles -->
+	<!-- <dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-jsp</artifactId>
+	    <version>3.0.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-servlet</artifactId>
+	    <version>3.0.5</version>
+	</dependency> -->
+	<dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-extras</artifactId>
+	    <version>3.0.5</version>
+	</dependency>
+	<!-- <dependency>
+	    <groupId>org.apache.tiles</groupId>
+	    <artifactId>tiles-core</artifactId>
+	    <version>3.0.5</version>
+	</dependency> -->
+	
+		
+	
 	</dependencies>
 	
   <build>
