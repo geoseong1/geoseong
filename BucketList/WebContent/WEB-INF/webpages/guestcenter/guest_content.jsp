@@ -11,14 +11,14 @@
 	<th>아이디</th>
 	<td>${guestbrd.brduserid }</td>
 	
-	<th>파일</td>
+	<th>파일</th>
 </tr>
 <tr>
 	<th>제목</th>
 	<td>${guestbrd.brdsubject }</td>
 	
 	<td rowspan="3">
-		<div>파일<input type="hidden" name="brdfilepath" value="filepath"></div>
+		<div><input type="hidden" name="brdfilepath" value="filepath"></div>
 		<div>${guestbrd.brdfilepath }</div>
 	</td>
 </tr>

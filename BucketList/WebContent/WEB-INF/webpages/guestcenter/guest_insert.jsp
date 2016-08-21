@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h1>guest_insert.jsp</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 <table cellspacing="0" class="guesttbl_addmod">
 <tr>
 	<th>아이디</th>
@@ -12,16 +12,16 @@
 </tr>
 <tr>
 	<th>제목</th>
-	<td><input type="text" name="brdsubject"></td>
-	
+	<td><input type="text" name="brdsubject" placeholder="제목을 입력하세요" required="required"></td>
+			<!-- INPUT TYPE의 required 속성은 HTML5 기능인 듯. -->
 	<td rowspan="2">
-		<div>파일올리기<input type="hidden" name="brdfilepath" value="filepath"></div>
-		<div></div>
+		<div><p>파일올리기</p>
+		<input type="file" name="file"></div>
 	</td>
 </tr>
 <tr>	
 	<th>내용</th>
-	<td>	<textarea name="brdcontext" rows="30" cols="100"></textarea>	</td>
+	<td>	<textarea name="brdcontext" rows="30" cols="100" placeholder="내용을 입력하세요"></textarea>	</td>
 </tr>
 <tr>
 	<td colspan="3" id="btn">

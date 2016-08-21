@@ -10,7 +10,7 @@
 	</td>
 </tr>
 <tr>
-	<th>게시번호</th>
+	<th>no.</th>
 	<th>아이디</th>
 	<th>제목</th>
 	<th>게시날짜</th>

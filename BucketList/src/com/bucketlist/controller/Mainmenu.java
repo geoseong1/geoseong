@@ -1,17 +1,19 @@
 package com.bucketlist.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tiles.web.util.ServletContextAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bucketlist.dto.GuestBrdVO;
 import com.bucketlist.home.GuestBrdServiceImpl;
@@ -25,13 +27,16 @@ public class Mainmenu {
 	public void setVo(VO vo) {
 		this.vo = vo;
 	}
-	
 	private GuestBrdServiceImpl guestDao;
 	public void setGuestDao(GuestBrdServiceImpl guestDao) {
 		this.guestDao = guestDao;
 	}
+	@Autowired
+    private ServletContext servletContext;
+	
 /* End : 변수 영역 */
 	
+
 /* Start : 메소드 영역 */
 	@RequestMapping(value="/default.do", method=RequestMethod.GET)
 	public String tiles(Model model){
@@ -56,17 +61,34 @@ public class Mainmenu {
 		return "guestcenter/guest_main";
 	} //end guestcenter list mainmenu 
 	
-	// 글쓰기 화면
+	// 글쓰기 화면(GET)
 	@RequestMapping(value="/guestinsert.do", method=RequestMethod.GET)
 	public String guestinsert_get(Model model){
 		System.out.println("guestinsert_get");		
 		return "guestcenter/guest_insert";
 	} //end guestinsert_get
 
-	// 글쓰기 버튼 눌렀을때 DAO이용
+	// 글쓰기 버튼 눌렀을때 (POST)
 	@RequestMapping(value="/guestinsert.do", method=RequestMethod.POST)
-	public String guestinsert_post(Model model, GuestBrdVO gbVO){
+	public String guestinsert_post(Model model, GuestBrdVO gbVO, HttpServletRequest request){
 		System.out.println("guestinsert_post");	
+		MultipartFile file = gbVO.getFile();
+	// servletContext정의는 이렇게 해야 핵이다
+		servletContext = request.getSession().getServletContext();
+			System.out.println("  file getOriginalFilename?  //" + file.getOriginalFilename());
+	// 파일을 업로드했을때만 실행됨
+		if(!file.getOriginalFilename().equals("")){	
+			String brdfilepath = file.getOriginalFilename();
+			gbVO.setBrdfilepath(brdfilepath);	//brdfilepath에 파일이름 넣기
+			try{
+				String webpath = servletContext.getRealPath("resources/files/guestcenter/");
+					System.out.println("     저장경로 : " + webpath);
+				File fileclass = new File(webpath+brdfilepath);
+				file.transferTo(fileclass);
+			}catch(IOException e){
+				System.out.println("[guestinsert.do] 에러 : " + e.getMessage());
+			}
+		} //end if
 		guestDao.inserBoard(gbVO);
 			System.out.println("guestinsert_post getBrduserid : " + gbVO.getBrduserid());
 			System.out.println("guestinsert_post getBrdsubject : " + gbVO.getBrdsubject());
@@ -75,7 +97,7 @@ public class Mainmenu {
 			System.out.println("and\nguestinsert_post getBrdcount: " + gbVO.getBrdcount());
 			System.out.println("guestinsert_post getBrdadddate: " + gbVO.getBrdadddate());
 			System.out.println("guestinsert_post getBrdno: " + gbVO.getBrdno());
-		return guestcenter(model);
+		return "redirect:guestcenter.do";
 	} //end guestinsert_post
 	
 	// 게시글 내용 들어가서 보기
@@ -92,8 +114,9 @@ public class Mainmenu {
 	public String guestdelete_get(Model model, HttpServletRequest request){
 		System.out.println("guestdelete_get brdno ? " + request.getParameter("brdno"));
 		guestDao.removeBoard(Integer.parseInt(request.getParameter("brdno")));
-		return guestcenter(model);
+		return "redirect:guestcenter.do";
 	} //end guestdelete_get
+	
 	
 	/** 테스트 영역 **/
 	@RequestMapping(value="/test.do")

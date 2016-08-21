@@ -7,3 +7,5 @@ select brdno,brduserid,brdsubject,brdcontext,brdfilepath,brdcount,brdadddate fro
 update guest_wishedu set brdfilepath='wow';
 
 desc guest_wishedu;
+
+delete from guest_wishedu where brdno in(12, 13);

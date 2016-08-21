@@ -60,4 +60,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- 스프링 Mulipart의 핵 : MultipartResolver -->
+	<bean id="multipartResolver"
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

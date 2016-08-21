@@ -1,5 +1,7 @@
 package com.bucketlist.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class GuestBrdVO {
 	private int brdno; /* 게시번호 */
 	private String brduserid; /* 아이디 */
@@ -8,13 +10,12 @@ public class GuestBrdVO {
 	private String brdfilepath; /* 파일 */
 	private String brdcount; /* 조회수 */
 	private String brdadddate; /* 게시날짜 */
-	
-	
+	private MultipartFile file;
+
 	public GuestBrdVO() {
 		super();
 	}
 
-	
 	public GuestBrdVO(String brduserid, String brdsubject, String brdcontext, String brdfilepath) {
 		super();
 		this.brduserid = brduserid;
@@ -78,5 +79,11 @@ public class GuestBrdVO {
 		this.brdadddate = brdadddate;
 	}
 	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	
 }
