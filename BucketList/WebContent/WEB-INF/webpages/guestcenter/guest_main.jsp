@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 스타일시트 적용 -->
+<link rel="stylesheet" href="resources/css/guestboard.css">
 
 <h1>guest_main.jsp</h1>
 
@@ -12,7 +14,7 @@
 <tr>
 	<th>no.</th>
 	<th>아이디</th>
-	<th>제목</th>
+	<th id="sub">제목</th>
 	<th>게시날짜</th>
 	<th>파일</th>
 	<th>조회수</th>

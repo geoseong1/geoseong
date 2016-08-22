@@ -9,4 +9,5 @@ public interface GuestBrdService {
 	void inserBoard(GuestBrdVO gbVO);
 	GuestBrdVO getBoardContent(Integer brdno);
 	void removeBoard(Integer brdno);
+	void updateBoard(GuestBrdVO gbVO);
 }

@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+/* 게시판 메인화면 */
+.guesttbl_list th{
+	padding: 0.5em;
+	border-bottom: 1px solid #993300;
+}
+.guesttbl_list #sub{
+	width: 40em;
+}
+.guesttbl_list #underth{
+	padding: 0.5em;
+	text-align: center;
+}
+.guesttbl_list td{
+	padding: 0em 0.5em;
+}
+.guesttbl_list #btn{
+	text-align: right;
+}
+
+/* 게시판 내용 보기 */
+.guesttbl_content th{
+	width : 5em;
+	height: 1.5em;
+	border-right : 1px solid black;
+	border-bottom: 2px dotted black;;
+}
+.guesttbl_content td{
+	width: 50em;
+	word-break : break-all;	 /* width 를 넘어가면 음절단위로 잘라 줄바꿈*/
+}
+.guesttbl_content #filecontent{
+	width: 10em;
+}
+
+/* 게시판 글쓰기 */
+.guesttbl_addmod th{
+	width : 5em;
+	height: 1.5em;
+	border-right : 1px solid black;
+	border-bottom: 2px dotted black;;
+}
+.guesttbl_addmod td{
+	word-break : break-all;	 /* width 를 넘어가면 음절단위로 잘라 줄바꿈*/
+}

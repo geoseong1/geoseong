@@ -73,10 +73,10 @@ public class Mainmenu {
 	public String guestinsert_post(Model model, GuestBrdVO gbVO, HttpServletRequest request){
 		System.out.println("guestinsert_post");	
 		MultipartFile file = gbVO.getFile();
-	// servletContext정의는 이렇게 해야 핵이다
+		// servletContext정의는 이렇게 해야 핵이다
 		servletContext = request.getSession().getServletContext();
 			System.out.println("  file getOriginalFilename?  //" + file.getOriginalFilename());
-	// 파일을 업로드했을때만 실행됨
+		// 파일을 업로드했을때만 실행됨
 		if(!file.getOriginalFilename().equals("")){	
 			String brdfilepath = file.getOriginalFilename();
 			gbVO.setBrdfilepath(brdfilepath);	//brdfilepath에 파일이름 넣기
@@ -104,8 +104,10 @@ public class Mainmenu {
 	@RequestMapping(value="/guestcontent.do", method=RequestMethod.GET)
 	public String guestcontent_get(Model model, HttpServletRequest request){
 		System.out.println("guestinsert_get brdno? -- " + request.getParameter("brdno"));
-		
-		model.addAttribute("guestbrd", guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno"))));
+		//replace("\r\n", "<br>")
+		GuestBrdVO gbVO = guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno")));
+		gbVO.setBrdcontext(gbVO.getBrdcontext().replace("\r\n", "<br>"));
+		model.addAttribute("guestbrd", gbVO);
 		return "guestcenter/guest_content";
 	} //end guestcontent_get
 	
@@ -116,6 +118,48 @@ public class Mainmenu {
 		guestDao.removeBoard(Integer.parseInt(request.getParameter("brdno")));
 		return "redirect:guestcenter.do";
 	} //end guestdelete_get
+	
+	// 선택된 게시글 수정하기
+	@RequestMapping(value="/guestupdate.do", method=RequestMethod.GET)
+	public String guestupdate_get(Model model, HttpServletRequest request){
+		System.out.println("guestupdate_get brdno ? " + request.getParameter("brdno"));
+		
+		model.addAttribute("guestbrd", guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno"))));
+		return "guestcenter/guest_modify";
+	} //end guestupdate_get
+		
+	// 선택된 게시글 수정 완료 (POST)
+	@RequestMapping(value="/guestupdate.do", method=RequestMethod.POST)
+	public String guestupdate_post(Model model, GuestBrdVO gbVO, HttpServletRequest request){
+		System.out.println("guestupdate_post");	
+		MultipartFile file = gbVO.getFile();
+		// servletContext정의는 이렇게 해야 핵이다 = 적용된다.
+		servletContext = request.getSession().getServletContext();
+			System.out.println("  file getOriginalFilename?  //" + file.getOriginalFilename());
+		// file.getOriginalFilename이 공란이 아닐때 실행됨
+		if(!file.getOriginalFilename().equals("")){	
+			String brdfilepath = file.getOriginalFilename();
+			gbVO.setBrdfilepath(brdfilepath);	//brdfilepath에 파일이름 넣기
+			try{
+				String webpath = servletContext.getRealPath("resources/files/guestcenter/");
+					System.out.println("     저장경로 : " + webpath);
+				File fileclass = new File(webpath+brdfilepath);
+				file.transferTo(fileclass);	// 업로드하려는 파일을 File클래스를 이용하여 실제 지정한 경로로 업로드. 
+			}catch(IOException e){
+				System.out.println("[guestinsert.do] 에러 : " + e.getMessage());
+			}
+		} //end if
+		System.out.println("guestupdate_post getBrduserid : " + gbVO.getBrduserid());
+		System.out.println("guestupdate_post getBrdsubject : " + gbVO.getBrdsubject());
+		System.out.println("guestupdate_post getBrdcontext : " + gbVO.getBrdcontext());
+		System.out.println("guestupdate_post getBrdfilepath : " + gbVO.getBrdfilepath());
+		System.out.println("and\nguestupdate_post getBrdcount: " + gbVO.getBrdcount());
+		System.out.println("guestupdate_post getBrdadddate: " + gbVO.getBrdadddate());
+		System.out.println("guestupdate_post getBrdno: " + gbVO.getBrdno());
+		// 이 한줄로 실제 SQL에 적용할 것임.
+		guestDao.updateBoard(gbVO);
+		return "redirect:guestcenter.do";
+	} //end guestupdate_post
 	
 	
 	/** 테스트 영역 **/

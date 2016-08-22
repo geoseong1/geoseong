@@ -79,4 +79,19 @@ public class GuestBrdServiceImpl implements GuestBrdService{
 			session.close();
 		}
 	}
+
+	@Override
+	public void updateBoard(GuestBrdVO gbVO) {
+		System.out.println("GuestBrdService_MyBatis >>> updateBoard");
+		SqlSession session = sqlSessionFactory.openSession();	// sqlSessionFactory를 이용해 Session을 연다.
+		try{
+			System.out.println("------------------update 하기 전");
+			System.out.println("		update 하려는 게시번호 : " + session.update("guestboard.boardUpdate", gbVO));	// session을 이용해 매퍼xml의 SQL을 사용
+			System.out.println("------------------update 한 후");		
+		}catch(Exception e){
+			System.out.println("[GuestBrdServiceImpl] 에러 : \n" + e.getMessage());
+		}finally{
+			session.close();
+		}
+	}
 }

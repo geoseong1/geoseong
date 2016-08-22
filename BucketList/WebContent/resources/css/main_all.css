@@ -14,33 +14,27 @@ body{
 	width: 100%;
 	margin: 0em;
 }
+#header{
+	background-color: #993300;
+	top: 0em;
+	width: 100%;
+	position: fixed;
+	padding: 1em;
+}
 #menuwrap{
+	width: 100%;
+	margin-top: 3em;
 	background-color: #ffffff;
 	color: #000000;
 }
 #footer{
-	position: fixed;
+	width: 100%;
 	bottom: 0em;
-}
-
-.guesttbl_list th{
-	padding: 1em;
-	border-bottom: 1px solid #993300;
-}
-.guesttbl_list #underth{
-	padding: 0.5em;
+	padding: 3em;
 	text-align: center;
 }
-.guesttbl_list td{
-	padding: 0em 0.5em;
-}
-.guesttbl_list #btn{
-	text-align: right;
-}
 
-.guesttbl_addmod #btn{
-	text-align: right;
-}
+/* test sample */
 #enter{
 	vertical-align: middle;
 	text-align: center;
