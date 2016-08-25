@@ -25,8 +25,8 @@
 </tr>
 <tr>
 	<td colspan="2" align="right">
-		<input type="submit" value="글쓰기">
 		<input type="button" value="목록으로" onclick="location.href='guestcenter.do'">
+		<input type="submit" value="글쓰기">
 	</td>
 </tr>
 </table>

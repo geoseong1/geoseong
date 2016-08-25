@@ -31,7 +31,7 @@
 	
 	<!-- 이방식도 됨 : <select id="boardList" resultMap="userResultMap"> -->
 	<select id="boardList" resultType="guestVO">
-		select * from guest_wishedu
+		select * from guest_wishedu order by brdno desc
 	</select>
 	
 	<insert id="boardInsert" parameterType="guestVO">
@@ -64,26 +64,4 @@
 		where brdno=#{brdno}
 	</update>
 	
-	<!-- 
-	<select id="login" parameterType="user.vo.UserVO" resultType="user.vo.UserVO">
-		select * from userinfo where userid=#{userid} and userpwd = #{userpwd}
-	</select>
-
-	<update id="update" parameterType="user.vo.UserVO">
-		update userinfo set
-		email=#{email},phone=#{phone},address=#{address} where
-		userid =
-		#{userid}
-	</update>
-
-	
-
-	<select id="search" parameterType="hashMap" resultType="user.vo.UserVO">
-		select * from userinfo
-		<where>
-			<if test="userid != null"> userid like '%'||#{userid}||'%'	</if>
-			<if test="username != null"> username like '%'||#{username}||'%'	</if>
-			<if test="email != null"> email like '%'||#{email}||'%'	</if>
-		</where>
-	</select> -->
 </mapper>

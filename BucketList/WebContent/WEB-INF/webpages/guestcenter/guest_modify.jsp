@@ -3,6 +3,34 @@
 <!-- 스타일시트 적용 -->
 <link rel="stylesheet" href="resources/css/guestboard.css">
 
+<!-- JS -->
+<script type="text/javascript">
+function fileremove(brdno){
+	alert("brdno : " + brdno);
+	$(document).ready(function() {
+	    jQuery.ajax({
+	          url : "fileremove.do",
+	          method : "post",
+	          data : "brdno="+brdno,
+	          //dataType: "JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+	          success : function(data) {
+	                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+	                // TODO
+	                alert('통신성공');
+	          },
+	          complete : function(data) {
+	                // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+	                // TODO
+	        	  	alert('통신완료');
+	          },
+	          error : function(xhr, status, error) {
+	                alert("에러발생 - 파일이 안지워져요.");
+	          }
+	    });
+	});
+}
+</script>
+
 <h1>guest_insert.jsp</h1>
 <form method="post" enctype="multipart/form-data">
 <table cellspacing="5" cellpadding="5" class="guesttbl_addmod">
@@ -24,7 +52,8 @@
 			업로드된 파일 없음
 		</c:when>
 		<c:otherwise>
-			<span>업로드된 파일 : ${guestbrd.brdfilepath }</span>	
+			<span>업로드된 파일 : <span id="brdfilepath">${guestbrd.brdfilepath }</span></span>
+			<input type="button" onclick="fileremove('${guestbrd.brdno }')" value="업로드된파일지우기">
 		</c:otherwise>
 		</c:choose>
 	</td>

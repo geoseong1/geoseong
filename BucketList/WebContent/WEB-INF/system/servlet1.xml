@@ -13,11 +13,14 @@
 	<!-- MVC:annotation-driven -->
 	<mvc:annotation-driven />
 	
-	<!-- vo Bean을 참고하는 Controller bean 등록 by beans.xml -->
+	<!-- Controller bean 등록 -->
 	<bean class="com.bucketlist.controller.Mainmenu">
 		<property name="vo" ref="vo" />
+	</bean>
+	<bean class="com.bucketlist.controller.GuestCenterController">
 		<property name="guestDao" ref="guestDao" />
 	</bean>
+	
 	
 <!-- 시작 : MyBatis를 위한 태그들 -->
 	<!-- sqlSessionFactory :
