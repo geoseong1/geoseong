@@ -1,8 +1,7 @@
-package com.bucketlist.home;
+package com.bucketlist.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;

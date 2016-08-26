@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bucketlist.dao.GuestBrdServiceImpl;
 import com.bucketlist.dto.GuestBrdVO;
-import com.bucketlist.home.GuestBrdServiceImpl;
 
 @Controller
 public class GuestCenterController {
 
 /* Start : 변수 영역 */
-	private GuestBrdServiceImpl guestDao;
-	public void setGuestDao(GuestBrdServiceImpl guestDao) {
-		this.guestDao = guestDao;
+	private GuestBrdServiceImpl guestBrdServiceImpl;
+	public void setGuestBrdServiceImpl(GuestBrdServiceImpl guestBrdServiceImpl) {
+		this.guestBrdServiceImpl = guestBrdServiceImpl;
 	}
 	@Autowired
     private ServletContext servletContext;
@@ -34,10 +34,10 @@ public class GuestCenterController {
 	// Guestcenter게시판메인 : 리스트 보기
 	@RequestMapping(value="/guestcenter.do", method=RequestMethod.GET)
 	public String guestcenter(Model model){
-		System.out.println("guestcenter/guest_main");
+		System.out.println("\nguestcenter/guest_main");
 		try{
-			System.out.println("\n------------------------------------dao에서 자료 빼오기 전");
-			List<GuestBrdVO> list = guestDao.getBoardList();
+			System.out.println("------------------------------------dao에서 자료 빼오기 전");
+			List<GuestBrdVO> list = guestBrdServiceImpl.getBoardList();
 			System.out.println("------------------------------------dao에서 자료 빼온 후\n");
 			model.addAttribute("guestbrd", list);
 		}catch(Exception e){
@@ -75,7 +75,7 @@ public class GuestCenterController {
 			}
 		} //end if
 		// 이 한줄로 실제 SQL에 적용할 것임.
-		guestDao.inserBoard(gbVO);
+		guestBrdServiceImpl.inserBoard(gbVO);
 		return "redirect:guestcenter.do";
 	} //end guestinsert_post
 	
@@ -83,7 +83,7 @@ public class GuestCenterController {
 	@RequestMapping(value="/guestcontent.do", method=RequestMethod.GET)
 	public String guestcontent_get(Model model, HttpServletRequest request){
 		System.out.println("guestinsert_get brdno? -- " + request.getParameter("brdno"));
-		GuestBrdVO gbVO = guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno")));
+		GuestBrdVO gbVO = guestBrdServiceImpl.getBoardContent(Integer.parseInt(request.getParameter("brdno")));
 		// 엔터친 내용을 <br>태그로 치환해서 실제로 jsp에서도 한 줄 내려가게 구현.
 		gbVO.setBrdcontext(gbVO.getBrdcontext().replace("\r\n", "<br>"));
 		model.addAttribute("guestbrd", gbVO);
@@ -94,7 +94,7 @@ public class GuestCenterController {
 	@RequestMapping(value="/guestdelete.do", method=RequestMethod.POST)
 	public String guestdelete_get(Model model, HttpServletRequest request){
 		System.out.println("guestdelete_get brdno ? " + request.getParameter("brdno"));
-		guestDao.removeBoard(Integer.parseInt(request.getParameter("brdno")));
+		guestBrdServiceImpl.removeBoard(Integer.parseInt(request.getParameter("brdno")));
 		return "redirect:guestcenter.do";
 	} //end guestdelete_get
 	
@@ -102,7 +102,7 @@ public class GuestCenterController {
 	@RequestMapping(value="/guestupdate.do", method=RequestMethod.GET)
 	public String guestupdate_get(Model model, HttpServletRequest request){
 		System.out.println("guestupdate_get brdno ? " + request.getParameter("brdno"));
-		model.addAttribute("guestbrd", guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno"))));
+		model.addAttribute("guestbrd", guestBrdServiceImpl.getBoardContent(Integer.parseInt(request.getParameter("brdno"))));
 		return "guestcenter/guest_modify";
 	} //end guestupdate_get
 		
@@ -115,7 +115,7 @@ public class GuestCenterController {
 		servletContext = request.getSession().getServletContext();
 			System.out.println("  file getOriginalFilename?  //" + file.getOriginalFilename());
 		// file.getOriginalFilename이 공란이 아닐때 실행됨
-		if(!file.getOriginalFilename().equals("")){	
+		//if(!file.getOriginalFilename().equals("")){	
 			String brdfilepath = file.getOriginalFilename();
 			gbVO.setBrdfilepath(brdfilepath);	//brdfilepath에 파일이름 넣기
 			try{
@@ -126,18 +126,22 @@ public class GuestCenterController {
 			}catch(IOException e){
 				System.out.println("[guestinsert.do] 에러 : " + e.getMessage());
 			}
-		} //end if
+		//} //end if
 		// 이 한줄로 실제 SQL에 적용할 것임.
-		guestDao.updateBoard(gbVO);
+		guestBrdServiceImpl.updateBoard(gbVO);
 		return "redirect:guestcenter.do";
 	} //end guestupdate_post
 	
 	// 선택된 게시글 수정 완료 (POST)
 	@RequestMapping(value="/fileremove.do", method=RequestMethod.POST)
+	/*@ResponseBody*/
 	public String ajax_fileremove(Model model, HttpServletRequest request){
 		System.out.println("fileremove.do POST & brdno : " + request.getParameter("brdno"));
-		GuestBrdVO gbVO = guestDao.getBoardContent(Integer.parseInt(request.getParameter("brdno")));
-		return "";
+		GuestBrdVO gbVO = guestBrdServiceImpl.getBoardContent(Integer.parseInt(request.getParameter("brdno")));
+			System.out.println("before] brdfilepath : " + gbVO.getBrdfilepath());
+		gbVO.setBrdfilepath(null);
+			System.out.println("after] brdfilepath : " + gbVO.getBrdfilepath());
+		return "guestcenter/guest_modify";
 	}
 /* End : 메소드 영역 */
 }

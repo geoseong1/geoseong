@@ -1,4 +1,4 @@
-package com.bucketlist.home;
+package com.bucketlist.dao;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.bucketlist.dto.GuestBrdVO;
+import com.bucketlist.service.GuestBrdService;
 
 public class GuestBrdServiceImpl implements GuestBrdService{
 

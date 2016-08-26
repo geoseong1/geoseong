@@ -10,6 +10,10 @@
 		<put-attribute name="footer" value="/WEB-INF/webpages/index_bottom.jsp"/>
 	</definition>
 	
+	<definition name="login" extends="default">
+		<put-attribute name="header" value="/WEB-INF/webpages/index_top.jsp"/>
+	</definition>
+	
 	<definition name="*/*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/webpages/{1}/{2}.jsp"/>
 	</definition>

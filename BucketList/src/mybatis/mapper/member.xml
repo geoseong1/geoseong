@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member" >
+		
+		<!-- 잘됨. -->
+		<resultMap id="userResultMap" type="memVO">
+		  	  <id property="brdno" column="brdno" />
+			  <result property="brduserid" column="brduserid"/>
+			  <result property="brdsubject" column="brdsubject"/>
+			  <result property="brdcontext" column="brdcontext"/>
+			  <result property="brdfilepath" column="brdfilepath"/>
+			  <result property="brdcount" column="brdcount"/>
+			  <result property="brdadddate" column="brdadddate"/>
+		</resultMap>
+		<!-- resultMap과 연계하여 이방식도 됨 : <select id="memberList" resultMap="userResultMap"> -->
+	
+	<select id="memberList" resultType="memVO">
+		select * from meber
+	</select>
+	
+	<insert id="memberInsert" parameterType="memVO">
+		insert into member(userid, username, userpwd, userphone, useremail, joindate)
+		values(#{userid}, #{username}, #{userpwd}, #{userphone}, #{useremail}, date_format(now(), '%Y/%m/%d'))
+	</insert>
+
+	<select id="memberContent" resultType="memVO">
+		select * from member 
+		where
+		userid = #{userid}
+	</select>
+	
+	<delete id="memberDelete">
+		delete from member where userid=#{userid}
+	</delete>
+	
+	<update id="memberUpdate" parameterType="memVO">
+		update member set 
+			userpwd = #{userpwd}
+			<if test="username != ''">
+				, username = #{username}
+			</if>
+			<if test="userphone != ''">
+				, userphone = #{userphone}
+			</if>
+			<if test="useremail != ''">
+				, useremail = #{useremail}
+			</if>
+			where userid = #{userid}
+	</update>
+	
+</mapper>

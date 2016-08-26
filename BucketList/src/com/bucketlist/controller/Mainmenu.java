@@ -1,23 +1,11 @@
 package com.bucketlist.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.tiles.web.util.ServletContextAdapter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.bucketlist.dto.GuestBrdVO;
-import com.bucketlist.home.GuestBrdServiceImpl;
-import com.bucketlist.home.VO;
+import com.bucketlist.dao.VO;
 
 @Controller
 public class Mainmenu {
@@ -27,12 +15,6 @@ public class Mainmenu {
 	public void setVo(VO vo) {
 		this.vo = vo;
 	}
-	private GuestBrdServiceImpl guestDao;
-	public void setGuestDao(GuestBrdServiceImpl guestDao) {
-		this.guestDao = guestDao;
-	}
-	@Autowired
-    private ServletContext servletContext;
 	
 /* End : 변수 영역 */
 	
@@ -42,6 +24,13 @@ public class Mainmenu {
 	public String tiles(Model model){
 		System.out.println("tiles");
 		return "default";
+	}
+	
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
+	public String login(Model model){
+		
+		System.out.println("login");
+		return "login";
 	}
 	
 	/** 테스트 영역 **/

@@ -20,7 +20,16 @@
 	<td>${guestbrd.brdsubject }</td>
 	
 	<td rowspan="3" align="center" id="filecontent">
-		<div><a href="/BucketList/resources/files/guestcenter/${guestbrd.brdfilepath }" download>${guestbrd.brdfilepath }</a></div>
+		<div>
+		<c:choose>
+		<c:when test="${!empty guestbrd.brdfilepath }">
+			<a href="/BucketList/resources/files/guestcenter/${guestbrd.brdfilepath }" download>${guestbrd.brdfilepath }</a>
+		</c:when>
+		<c:otherwise>
+			<p>파일없음</p>
+		</c:otherwise>
+		</c:choose>
+		</div>
 	</td>
 </tr>
 <tr>	

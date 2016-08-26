@@ -1,4 +1,4 @@
-package com.bucketlist.home;
+package com.bucketlist.service;
 
 import java.util.List;
 

@@ -5,29 +5,45 @@
 
 <!-- JS -->
 <script type="text/javascript">
+
+/* $("button").click(function(){
+    $.post("demo_test_post.asp",
+    {
+        name: "Donald Duck",
+        city: "Duckburg"
+    },
+    function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+});
+ */
 function fileremove(brdno){
-	alert("brdno : " + brdno);
-	$(document).ready(function() {
-	    jQuery.ajax({
+	//$(document).ready(function() {
+		var brdnum = brdno;
+	    $.ajax({
 	          url : "fileremove.do",
-	          method : "post",
-	          data : "brdno="+brdno,
-	          //dataType: "JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+	          method : "POST",
+	          data : { brdno : brdnum }, 
+	          //dataType: "text", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
 	          success : function(data) {
 	                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
 	                // TODO
-	                alert('통신성공');
+	                //alert('통신성공 data : ' + data);
+	        	  	$("#brdfilepath").html("없음");
 	          },
 	          complete : function(data) {
 	                // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
 	                // TODO
-	        	  	alert('통신완료');
+	        	  	//alert('통신완료 data : ' + data.status);
 	          },
-	          error : function(xhr, status, error) {
-	                alert("에러발생 - 파일이 안지워져요.");
-	          }
+	          /* error : function(xhr, status, error) {
+	                alert("에러발생 - 파일이 안지워져요. status : " + status + ", xhr : " + xhr.value + ", error : "+ error);
+	          } */
+	          error:function(request,status,error){
+	              alert("code:  "+request.status+"\n"+"message:  "+request.responseText+"\n"+"error:  "+error);
+              }
 	    });
-	});
+	//});
 }
 </script>
 

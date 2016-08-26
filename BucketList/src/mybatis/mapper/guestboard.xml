@@ -4,19 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="guestboard" >
-
-		<!-- 안됨 : Mapped Statements collection does not contain value for guestVOO.boardList -->
-		<resultMap type="com.bucketlist.dto.GuestBrdVO" id="res_wishedu" >
-			<constructor>
-				<idArg column="brdno" javaType="int"/>
-				<arg column="brduserid" javaType="String"/>
-				<arg column="brdsubject" javaType="String"/>
-				<arg column="brdcontext" javaType="String"/>
-				<arg column="brdfilepath" javaType="String"/>
-				<arg column="brdcount" javaType="String"/>
-				<arg column="brdadddate" javaType="String"/>
-			</constructor>
-		</resultMap>
 		
 		<!-- 잘됨. -->
 		<resultMap id="userResultMap" type="guestVO">
@@ -28,8 +15,8 @@
 			  <result property="brdcount" column="brdcount"/>
 			  <result property="brdadddate" column="brdadddate"/>
 		</resultMap>
+		<!-- resultMap과 연계하여 이방식도 됨 : <select id="boardList" resultMap="userResultMap"> -->
 	
-	<!-- 이방식도 됨 : <select id="boardList" resultMap="userResultMap"> -->
 	<select id="boardList" resultType="guestVO">
 		select * from guest_wishedu order by brdno desc
 	</select>

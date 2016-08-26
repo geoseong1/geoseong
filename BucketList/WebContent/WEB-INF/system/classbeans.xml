@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- VO클래스 Bean 등록 -->
-	<bean id="vo" class="com.bucketlist.home.VO">
+	<bean id="vo" class="com.bucketlist.dao.VO">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	

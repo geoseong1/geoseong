@@ -6,8 +6,11 @@
 <configuration>	
  	<typeAliases>
  		<typeAlias alias="guestVO" type="com.bucketlist.dto.GuestBrdVO"/>
+ 		<typeAlias alias="memVO" type="com.bucketlist.dto.MemberVO"/>
  	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mapper/guestboard.xml"/>
+		<mapper resource="mybatis/mapper/member.xml"/>
+		<!-- 실패함 : <package name="mybatis.mapper"/> -->
 	</mappers>
 </configuration>
