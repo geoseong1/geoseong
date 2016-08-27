@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<script type="text/javascript">
+function areyousure(){
+	 if (confirm("정말 되돌아가시겠습니까??") == true){    //확인
+	    location.href='default.do';
+	 }else{   //취소
+	     return false;
+	 }
+}
+</script>
 <h1>join_member.jsp</h1>
 
-<form method="post" action="joinmember.do">
+<form method="post" action="joinmember.do" name="joinfrm">
 <table class="join_tbl" cellspacing="3">
 	<tr>
 		<th>아이디</th><td><input type="text" name="userid"></td><td></td>
@@ -26,7 +35,7 @@
 			<input type="hidden" name="writedbrd" value="">
 			<input type="hidden" name="writedreply" value="">
 			<input type="reset" value="리셋하기">
-			<input type="button" value="돌아가기" onclick="areyousure()">
+			<input type="button" value="돌아가기" onclick="return areyousure()">
 			<input type="submit" value="가입요청">
 		</td>
 	</tr>

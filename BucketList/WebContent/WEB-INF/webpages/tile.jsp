@@ -12,8 +12,24 @@
 <link rel="stylesheet" href="resources/css/main_all.css">
 
 <script type="text/javascript" src="resources/js/jquery_latest_160826.js"></script>
-<!-- Modal을 위한 bootstrap
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<!-- Modal을 위한 bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.login_modal').hide();
+	
+    $("#login").click(function(){
+    	$('.login_modal').show();
+    	$('.login_modal').load('resources/login.jsp', function( response, status, xhr ) {
+    		  if ( status == "error" ) {
+    			    var msg = "Sorry but there was an error: ";
+    			    $( ".login_modal" ).html( msg + xhr.status + " " + xhr.statusText );
+    			  }
+			});
+    	$('.login_modal').css('top','0').css('opacity','0.5').css('display','block').css('position','fixed').css('width','100%').css('height','100%').css('z-index','100').css('background-color','#000');
+    })
+})
+</script>
 
 </head>
 <body>
@@ -27,8 +43,11 @@
 	<div id="footer">
 		<tiles:insertAttribute name="footer"/>
 	</div>
-	<div id="login_modal">
-	</div>
+</div>
+
+<div class="login_modal">
+</div>
+<div class="login_modal_content">
 </div>
 </body>
 </html>

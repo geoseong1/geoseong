@@ -15,17 +15,17 @@ public class Mainmenu {
 	public void setVo(VO vo) {
 		this.vo = vo;
 	}
-	
 /* End : 변수 영역 */
 	
 
 /* Start : 메소드 영역 */
+	// BucketList 맨 첫 페이지
 	@RequestMapping(value="/default.do", method=RequestMethod.GET)
 	public String tiles(Model model){
 		System.out.println("tiles");
 		return "default";
 	}
-	
+	// login.jsp로 이동
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public String login(Model model){
 		
